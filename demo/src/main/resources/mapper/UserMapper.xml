@@ -1,0 +1,25 @@
+<!-- 📄 src/main/resources/mapper/UserMapper.xml -->
+
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.example.demo.mapper.UserMapper">
+
+    <!-- 사용자 목록 전체 조회 -->
+    <select id="getUserList" resultType="com.example.demo.model.User">
+        SELECT * FROM users WHERE deleted_yn = 'N'
+    </select>
+
+    <!-- 이메일로 사용자 1명 조회 -->
+    <select id="getUserByEmail" parameterType="string" resultType="com.example.demo.model.User">
+        SELECT * FROM users WHERE email = #{email} AND deleted_yn = 'N'
+    </select>
+
+    <!-- 사용자 등록 -->
+    <insert id="insertUser" parameterType="com.example.demo.model.User">
+        INSERT INTO users (username, email, password, role, created_at, deleted_yn)
+        VALUES (#{username}, #{email}, #{password}, #{role}, SYSDATE, 'N')
+    </insert>
+
+</mapper>
